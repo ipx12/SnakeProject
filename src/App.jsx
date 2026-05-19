@@ -1,11 +1,13 @@
-import snakeImg from './assets/images/firstSnake.png'
-import './App.css'
-import { Button } from './components/ui/button'
-import { Camera, FolderClosed } from 'lucide-react'
+import MainButton from "./components/web/buttons/mainButton"
+
+
 function App() {
   return (
     <>
-      <main className="h-screen">
+      <main className="h-screen bg-[#3e3d3c] p-10 flex flex-col gap-8 items-start">
+        <MainButton>GET IN TOUCH</MainButton>
+        <MainButton>JOIN THE TEAM</MainButton>
+        <MainButton>OOPS, TAKE ME BACK</MainButton>
       </main>
     </>
   )
