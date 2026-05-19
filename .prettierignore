@@ -1,0 +1,22 @@
+# Build output
+dist
+build
+
+# Dependencies
+node_modules
+
+# Static / public assets
+public
+
+# Lock files (let package managers own these)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Auto-generated files
+*.min.js
+*.min.css
+
+# Env files
+.env
+.env.*
