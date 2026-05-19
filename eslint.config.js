@@ -63,7 +63,7 @@ export default defineConfig([
       react: {
         // Pin the React version so the plugin doesn't try to auto-detect it
         // (auto-detect breaks with ESLint 10 due to a changed context API)
-        version: '19.0',
+        version: '19.2.6',
       },
     },
 
