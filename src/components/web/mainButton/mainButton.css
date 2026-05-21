@@ -1,0 +1,55 @@
+@import "tailwindcss";
+.btn-3d {
+  --depth: 10px;
+  --bg: var(--color-yellow-main);
+  --text: #000;
+  --border: #000;
+  --border-width: 2px;
+  
+  position: relative;
+  background-color: var(--bg);
+  color: var(--text);
+  border: var(--border-width) solid var(--border);
+  transition: all 0.2s ease;
+  margin-top: var(--depth);
+  margin-right: var(--depth);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.btn-3d::before {
+  content: "";
+  position: absolute;
+  top: calc((var(--depth) + var(--border-width)) * -1);
+  left: calc(var(--border-width) * -1);
+  width: calc(100% + var(--border-width) * 2);
+  height: var(--depth);
+  background-color: var(--bg);
+  border: var(--border-width) solid var(--border);
+  border-bottom: none;
+  transform: skewX(-45deg);
+  transform-origin: bottom;
+  transition: all 0.2s ease;
+}
+
+.btn-3d::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--border-width) * -1);
+  right: calc((var(--depth) + var(--border-width)) * -1);
+  width: var(--depth);
+  height: calc(100% + var(--border-width) * 2);
+  background-color: var(--bg);
+  border: var(--border-width) solid var(--border);
+  border-left: none;
+  transform: skewY(-45deg);
+  transform-origin: left;
+  transition: all 0.2s ease;
+}
+
+.btn-3d:hover {
+  --bg: #000;
+  --text: var(--color-yellow-main);
+  --border: var(--color-yellow-main);
+  cursor: pointer;
+}
