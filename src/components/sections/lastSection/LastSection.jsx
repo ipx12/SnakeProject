@@ -51,23 +51,23 @@ export function LastSection() {
             </div>
 
             {/* Main Tabs Component Container */}
-            <main className="relative flex-1 flex items-center justify-center w-full max-w-7xl mx-auto px-4 py-8 z-10">
+            <main className="relative container mx-auto flex-1 flex items-center justify-center w-full px-4 py-8 z-10">
                 <Tabs
                     value={activeTab}
                     onValueChange={setActiveTab}
-                    className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center justify-center w-full"
+                    className="flex flex-col lg:flex-row gap-4 lg:gap-16 items-center lg:items-start justify-center w-full"
                 >
                     {/* Tabs Triggers List */}
-                    <TabsList className="flex flex-col gap-4 lg:gap-6 w-full lg:w-auto bg-transparent p-0 h-auto border-none z-10 shrink-0">
+                    <TabsList className="flex flex-col lg:items-start gap-4 lg:gap-6 bg-transparent p-0 h-auto border-none z-10 shrink-0">
                         {TABS_DATA.map((tab) => (
                             <TabsTrigger
                                 key={tab.id}
                                 value={tab.id}
-                                className="group py-2 px-6 data-[state=active]:bg-yellow-main data-[state=active]:text-black data-[state=active]:border-black bg-transparent text-yellow-main border-yellow-main border-2 lg:border-[3px] rounded-full font-bold tracking-wider flex items-center justify-between cursor-pointer transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                                className="group gap-3 lg:px-12 lg:py-4 font-halvar py-2 px-4 data-[state=active]:bg-yellow-main data-[state=active]:text-black data-[state=active]:border-black bg-transparent text-yellow-main border-yellow-main border-2 lg:border-[2px] rounded-full font-bold tracking-wider flex items-center justify-between cursor-pointer transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                             >
-                                <span className="text-[20px] lg:text-[28px] font-bold">{tab.triggerText}</span>
+                                <span className="text-xl lg:text-3xl font-bold">{tab.triggerText}</span>
 
-                                <MoveRight className="size-8" />
+                                <MoveRight className="size-7" />
 
                             </TabsTrigger>
                         ))}
