@@ -7,7 +7,7 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 import MainButton from "@/components/web/mainButton/mainButton"
-import { MoveRight } from "lucide-react";
+import { MoveRight, MoveDown } from "lucide-react";
 
 const TABS_DATA = [
     {
@@ -51,19 +51,19 @@ export function LastSection() {
             </div>
 
             {/* Main Tabs Component Container */}
-            <main className="relative container mx-auto flex-1 flex items-center justify-center w-full px-4 py-8 z-10">
+            <div className="relative lg:max-w-[1440px] mx-auto flex-1 flex items-center justify-center w-full z-10">
                 <Tabs
                     value={activeTab}
                     onValueChange={setActiveTab}
-                    className="flex flex-col lg:flex-row gap-4 lg:gap-16 items-center lg:items-start justify-center w-full"
+                    className="flex flex-col lg:flex-row gap-5 lg:gap-16 items-center lg:items-start justify-center w-full"
                 >
                     {/* Tabs Triggers List */}
-                    <TabsList className="flex flex-col lg:items-start gap-4 lg:gap-6 bg-transparent p-0 h-auto border-none z-10 shrink-0">
+                    <TabsList className="flex flex-col lg:items-start gap-3 lg:gap-6 bg-transparent p-0 h-auto border-none z-10 shrink-0">
                         {TABS_DATA.map((tab) => (
                             <TabsTrigger
                                 key={tab.id}
                                 value={tab.id}
-                                className="group gap-3 lg:px-12 lg:py-4 font-halvar py-2 px-4 data-[state=active]:bg-yellow-main data-[state=active]:text-black data-[state=active]:border-black bg-transparent text-yellow-main border-yellow-main border-2 lg:border-[2px] rounded-full font-bold tracking-wider flex items-center justify-between cursor-pointer transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                                className="group gap-3 md:px-8 lg:px-12 lg:py-4 font-halvar py-3 px-8 data-[state=active]:bg-yellow-main data-[state=active]:text-black data-[state=active]:border-black bg-transparent text-yellow-main border-yellow-main border-2 lg:border-2 rounded-full font-bold tracking-wider flex items-center justify-between cursor-pointer duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                             >
                                 <span className="text-xl lg:text-3xl font-bold">{tab.triggerText}</span>
 
@@ -74,32 +74,27 @@ export function LastSection() {
                     </TabsList>
 
                     {/* Content Cards */}
-                    <div className="w-full max-w-xl lg:max-w-2xl min-h-[460px] lg:min-h-[480px] flex items-center justify-center z-10">
+                    <div className="w-full p-0 max-w-xl lg:max-w-2xl min-h-[470px] lg:min-h-[470px] flex items-center justify-center z-10">
                         {TABS_DATA.map((tab) => (
                             <TabsContent
                                 key={tab.id}
                                 value={tab.id}
-                                className="w-full outline-none data-[state=inactive]:hidden"
+                                className="w-full outline-none"
                             >
-                                <Card className="bg-[#9B00E8] text-white border-none ring-0 shadow-[0_0_40px_rgba(155,0,232,0.25)] rounded-[32px] p-6 lg:p-12 min-h-[440px] lg:min-h-[460px] flex items-center justify-center">
-                                    <CardContent className="flex flex-col items-center justify-center p-0 text-center animate-in fade-in-30 slide-in-from-bottom-5 zoom-in-95 duration-500 ease-out">
+                                <Card className="bg-[#9B00E8] text-white border-none ring-0 rounded-md px-4 lg:p-12 min-h-[470px] flex flex-col items-center justify-center">
+                                    <CardContent className="flex flex-col items-center justify-center p-0 text-center">
                                         <p className="text-base lg:text-lg font-medium mb-4 lg:mb-6 leading-relaxed max-w-lg select-text">
                                             {tab.p1}
                                         </p>
-
-                                        <svg className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-main my-2 lg:my-3 animate-bounce select-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                                        </svg>
+                                        <MoveDown className="size-7 text-black animate-bounce"/>
 
                                         <p className="text-base lg:text-lg font-semibold mb-6 lg:mb-8 leading-relaxed max-w-lg select-text">
                                             {tab.p2}
                                         </p>
 
-                                        <svg className="w-6 h-6 lg:w-8 lg:h-8 text-yellow-main mb-6 lg:mb-8 animate-bounce select-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                                        </svg>
+                                       <MoveDown className="size-7 mb-2 text-black animate-bounce"/>
 
-                                        <MainButton className="font-semibold text-xs lg:text-sm px-8 py-4">
+                                        <MainButton className="">
                                             {tab.buttonText}
                                         </MainButton>
                                     </CardContent>
@@ -108,8 +103,7 @@ export function LastSection() {
                         ))}
                     </div>
                 </Tabs>
-            </main>
-
+            </div>
         </section>
     )
 }
