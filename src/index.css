@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
 
 @font-face {
   font-family: 'Halvar Breit';
@@ -54,8 +53,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif;
+    --font-sans: 'Stolzl', sans-serif;
+    --font-heading: 'Halvar Breit', sans-serif;
     --font-halvar: 'Halvar Breit', sans-serif;
     --font-stolzl: 'Stolzl', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
