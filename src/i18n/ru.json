@@ -1,0 +1,12 @@
+{
+  "multiply": {
+    "for_media_buyers": "Для медиабайеров",
+    "for_businesses": "Для бизнеса",
+    "for_partners": "Для партнёров",
+    "button": {
+      "for_media_buyers": "Вступить в команду",
+      "for_businesses": "Начать рост",
+      "for_partners": "Вступить в программу"
+    }
+  }
+}
