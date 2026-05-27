@@ -1,12 +1,11 @@
-import snakeImg from './assets/images/firstSnake.png'
+import snakeImg from '@images/firstSnake.png'
 import './App.css'
-import { Button } from './components/ui/button'
+import { Button } from '@components/ui/button'
 import { Camera, FolderClosed } from 'lucide-react'
 function App() {
   return (
     <>
-      <main className="h-screen">
-      </main>
+      <main className="h-screen"></main>
     </>
   )
 }
