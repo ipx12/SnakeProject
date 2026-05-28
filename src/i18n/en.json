@@ -1,0 +1,12 @@
+{
+  "multiply": {
+    "for_media_buyers": "For Media Buyers",
+    "for_businesses": "For Businesses",
+    "for_partners": "For Partners",
+    "button": {
+      "for_media_buyers": "Join the team",
+      "for_businesses": "Start growing",
+      "for_partners": "Join program"
+    }
+  }
+}

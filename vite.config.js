@@ -1,25 +1,42 @@
 import { defineConfig } from 'vite'
-import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import react, {
+  reactCompilerPreset,
+} from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { fileURLToPath, URL } from 'node:url'
+import {
+  fileURLToPath,
+  URL,
+} from 'node:url'
 
-const resolvePath = (p) => fileURLToPath(new URL(p, import.meta.url))
+const resolvePath = (p) =>
+  fileURLToPath(
+    new URL(p, import.meta.url),
+  )
 
 export default defineConfig({
   plugins: [
     react({
       babel: {
-        presets: [reactCompilerPreset()],
+        presets: [
+          reactCompilerPreset(),
+        ],
       },
     }),
     tailwindcss(),
   ],
   resolve: {
     alias: {
+      '@': resolvePath('./src'),
       '@lib': resolvePath('./src/lib'),
-      '@components': resolvePath('./src/components'),
-      '@icons': resolvePath('./src/assets/icons'),
-      '@images': resolvePath('./src/assets/images'),
+      '@components': resolvePath(
+        './src/components',
+      ),
+      '@icons': resolvePath(
+        './src/assets/icons',
+      ),
+      '@images': resolvePath(
+        './src/assets/images',
+      ),
     },
   },
 })
