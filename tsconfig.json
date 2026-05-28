@@ -9,7 +9,6 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -17,23 +16,22 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
     /* JS Support */
     "allowJs": true,
     "checkJs": false,
-
     /* Linting */
     "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-
     /* Path mapping corresponding to vite.config.js */
-    "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@lib/*": ["./src/lib/*"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
       "@components/*": [
         "./src/components/*"
       ],
@@ -45,5 +43,7 @@
       ]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
