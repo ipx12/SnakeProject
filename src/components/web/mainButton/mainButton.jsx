@@ -2,9 +2,18 @@ import { Button } from '@components/ui/button'
 import { cn } from '@lib/utils'
 import './mainButton.css'
 
-const MainButton = ({ className, ...props }) => {
+const MainButton = ({
+  className,
+  ...props
+}) => {
   return (
-    <Button className={cn('btn-3d px-8 py-4 rounded-none uppercase', className)} {...props} />
+    <Button
+      className={cn(
+        'btn-3d px-8 py-4 rounded-none uppercase',
+        className,
+      )}
+      {...props}
+    />
 
     // If we use tailwindcss only without css file
     // <Button

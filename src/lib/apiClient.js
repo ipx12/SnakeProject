@@ -1,5 +1,7 @@
-const BASE_URL = import.meta.env.VITE_API_URL
-const API_KEY = import.meta.env.VITE_API_KEY
+const BASE_URL = import.meta.env
+  .VITE_API_URL
+const API_KEY = import.meta.env
+  .VITE_API_KEY
 
 if (!BASE_URL)
   throw new Error(
@@ -10,7 +12,10 @@ if (!API_KEY)
     '[apiClient] VITE_API_KEY is not defined. Add it to your .env file.',
   )
 
-const normalizedBase = BASE_URL.replace(/\/$/, '')
+const normalizedBase = BASE_URL.replace(
+  /\/$/,
+  '',
+)
 
 const DEFAULT_HEADERS = {
   'x-api-key': API_KEY,
@@ -22,18 +27,30 @@ const cache = new Map()
 
 const log = (method, url, color) => {
   if (import.meta.env.DEV)
-    console.warn(`%c[apiClient] ${method} ${url}`, `color: ${color}`)
+    console.warn(
+      `%c[apiClient] ${method} ${url}`,
+      `color: ${color}`,
+    )
 }
 
 function buildUrl(path) {
   return `${normalizedBase}/${path.replace(/^\//, '')}`
 }
 
-async function request(path, options = {}) {
+async function request(
+  path,
+  options = {},
+) {
   const url = buildUrl(path)
   const method = options.method ?? 'GET'
 
-  log(method, url, method === 'GET' ? '#34d399' : '#f59e0b')
+  log(
+    method,
+    url,
+    method === 'GET'
+      ? '#34d399'
+      : '#f59e0b',
+  )
 
   let response
   try {
@@ -60,7 +77,8 @@ async function request(path, options = {}) {
       // ignore parse error
     }
     throw new Error(
-      body || `[apiClient] ${method} ${url} failed with status ${response.status}`,
+      body ||
+        `[apiClient] ${method} ${url} failed with status ${response.status}`,
     )
   }
 
@@ -78,14 +96,24 @@ function withBody(method) {
 
 const apiClient = {
   get: async (path, options = {}) => {
-    const { cache: useCache = true, ...restOptions } = options
+    const {
+      cache: useCache = true,
+      ...restOptions
+    } = options
 
     if (useCache && cache.has(path)) {
-      log('GET (cache)', buildUrl(path), '#a78bfa')
+      log(
+        'GET (cache)',
+        buildUrl(path),
+        '#a78bfa',
+      )
       return cache.get(path)
     }
 
-    const data = await request(path, restOptions)
+    const data = await request(
+      path,
+      restOptions,
+    )
 
     if (useCache) cache.set(path, data)
     return data
@@ -94,7 +122,10 @@ const apiClient = {
   put: withBody('PUT'),
   patch: withBody('PATCH'),
   delete: (path, options) =>
-    request(path, { method: 'DELETE', ...options }),
+    request(path, {
+      method: 'DELETE',
+      ...options,
+    }),
 }
 
 export default apiClient

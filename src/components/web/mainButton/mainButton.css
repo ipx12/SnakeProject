@@ -1,15 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 .btn-3d {
   --depth: 10px;
   --bg: var(--color-yellow-main);
   --text: #000;
   --border: #000;
   --border-width: 2px;
-  
+
   position: relative;
   background-color: var(--bg);
   color: var(--text);
-  border: var(--border-width) solid var(--border);
+  border: var(--border-width) solid
+    var(--border);
   transition: all 0.2s ease;
   margin-top: var(--depth);
   margin-right: var(--depth);
@@ -18,14 +19,23 @@
 }
 
 .btn-3d::before {
-  content: "";
+  content: '';
   position: absolute;
-  top: calc((var(--depth) + var(--border-width)) * -1);
+  top: calc(
+    (
+        var(--depth) +
+          var(--border-width)
+      ) *
+      -1
+  );
   left: calc(var(--border-width) * -1);
-  width: calc(100% + var(--border-width) * 2);
+  width: calc(
+    100% + var(--border-width) * 2
+  );
   height: var(--depth);
   background-color: var(--bg);
-  border: var(--border-width) solid var(--border);
+  border: var(--border-width) solid
+    var(--border);
   border-bottom: none;
   transform: skewX(-45deg);
   transform-origin: bottom;
@@ -33,14 +43,23 @@
 }
 
 .btn-3d::after {
-  content: "";
+  content: '';
   position: absolute;
   top: calc(var(--border-width) * -1);
-  right: calc((var(--depth) + var(--border-width)) * -1);
+  right: calc(
+    (
+        var(--depth) +
+          var(--border-width)
+      ) *
+      -1
+  );
   width: var(--depth);
-  height: calc(100% + var(--border-width) * 2);
+  height: calc(
+    100% + var(--border-width) * 2
+  );
   background-color: var(--bg);
-  border: var(--border-width) solid var(--border);
+  border: var(--border-width) solid
+    var(--border);
   border-left: none;
   transform: skewY(-45deg);
   transform-origin: left;

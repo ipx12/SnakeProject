@@ -7,14 +7,21 @@ import jsxA11y from 'eslint-plugin-jsx-a11y'
 import prettier from 'eslint-plugin-prettier'
 import prettierConfig from 'eslint-config-prettier'
 import unicorn from 'eslint-plugin-unicorn'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import tseslint from 'typescript-eslint'
 
-export default defineConfig([
+export default tseslint.config(
   // ── Paths ESLint should never lint ─────────────────────────────────────────
-  globalIgnores(['dist', 'node_modules', 'public', '*.min.js']),
+  {
+    ignores: [
+      'dist',
+      'node_modules',
+      'public',
+      '*.min.js',
+    ],
+  },
 
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
 
     extends: [
       // Enables ESLint's core recommended ruleset (catches common JS mistakes)
@@ -24,7 +31,8 @@ export default defineConfig([
       // Enables the new JSX transform rules — no need to `import React` in every file
       react.configs.flat['jsx-runtime'],
       // Enforces hooks rules: only call hooks at the top level, inside React functions
-      reactHooks.configs.flat.recommended,
+      reactHooks.configs.flat
+        .recommended,
       // Warns about components that can't be safely fast-refreshed by Vite HMR
       reactRefresh.configs.vite,
       // Enables accessibility rules — flags missing alt text, wrong ARIA usage, etc.
@@ -41,6 +49,7 @@ export default defineConfig([
     },
 
     languageOptions: {
+      parser: tseslint.parser,
       // Use the latest ECMAScript syntax (ES2024+)
       ecmaVersion: 'latest',
       // Treat every file as an ES module (enables import/export)
@@ -53,7 +62,7 @@ export default defineConfig([
       },
       parserOptions: {
         ecmaFeatures: {
-          // Enable JSX syntax parsing in .js and .jsx files
+          // Enable JSX syntax parsing
           jsx: true,
         },
       },
@@ -80,17 +89,37 @@ export default defineConfig([
       // Prefer <Component /> over <Component></Component> when there are no children
       'react/self-closing-comp': 'warn',
       // Omit ={true} on boolean props — write <Modal open> not <Modal open={true}>
-      'react/jsx-boolean-value': ['warn', 'never'],
+      'react/jsx-boolean-value': [
+        'warn',
+        'never',
+      ],
       // Warn on <></> or <Fragment> wrapping a single child — just return the child directly
-      'react/jsx-no-useless-fragment': 'warn',
+      'react/jsx-no-useless-fragment':
+        'warn',
       // Remove unnecessary curly braces: use prop="text" not prop={"text"}
-      'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
+      'react/jsx-curly-brace-presence':
+        [
+          'warn',
+          {
+            props: 'never',
+            children: 'never',
+          },
+        ],
 
       // ── General JS ──────────────────────────────────────────────────────────
       // Disallow console.log in production code; allow console.warn and console.error
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': [
+        'warn',
+        { allow: ['warn', 'error'] },
+      ],
       // Warn on declared but unused variables; prefix with _ to intentionally ignore
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      'no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
       // Prefer const over let when the variable is never reassigned
       'prefer-const': 'warn',
       // Never use var — use const or let instead
@@ -105,14 +134,32 @@ export default defineConfig([
       'no-shadow': 'warn',
       // Disallow nested ternaries: a ? b ? c : d : e — use if/else or extract a variable
       'no-nested-ternary': 'error',
-      // Require a space after // or /* so comments are readable: // comment not //comment
-      'spaced-comment': ['warn', 'always'],
+      // Require a space after // or /* so comments are readable: // comment not //comment (except for TS triple-slash directives)
+      'spaced-comment': [
+        'warn',
+        'always',
+        { markers: ['/'] },
+      ],
 
       // ── React hooks ─────────────────────────────────────────────────────────
+      // Allow exporting constants like buttonVariants alongside components
+      'react-refresh/only-export-components':
+        [
+          'warn',
+          { allowConstantExport: true },
+        ],
       // Enforce [value, setValue] naming convention for useState pairs
       'react/hook-use-state': 'warn',
       // Prevent `{count && <Comp />}` rendering "0" — force `{count > 0 && <Comp />}`
-      'react/jsx-no-leaked-render': ['error', { validStrategies: ['coerce', 'ternary'] }],
+      'react/jsx-no-leaked-render': [
+        'error',
+        {
+          validStrategies: [
+            'coerce',
+            'ternary',
+          ],
+        },
+      ],
 
       // ── File & identifier naming (unicorn) ───────────────────────────────────
       // Components → PascalCase (Button.jsx), hooks/utils → camelCase (useAuth.js)
@@ -127,9 +174,30 @@ export default defineConfig([
             /^vite\.config/, // vite.config.js
             /^eslint\.config/, // eslint.config.js
             /^tailwind\.config/, // tailwind.config.js
+            /^vite-env\.d\.ts/, // vite-env.d.ts
           ],
         },
       ],
     },
   },
-])
+
+  // ── TypeScript Specific Rules ──────────────────────────────────────────────
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      ...tseslint.configs.recommended,
+    ],
+    rules: {
+      // Disable base no-unused-vars rule for TS files to let TS compiler handle it
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars':
+        [
+          'warn',
+          {
+            argsIgnorePattern: '^_',
+            varsIgnorePattern: '^_',
+          },
+        ],
+    },
+  },
+)
