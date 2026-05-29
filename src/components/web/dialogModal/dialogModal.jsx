@@ -22,7 +22,7 @@ export function DialogModal({
       </DialogTrigger>
       <DialogContent
         className={cn(
-          'sm:max-w-[540px] p-6 sm:p-8',
+          'sm:max-w-[558px] h-[434px] p-6 sm:p-8',
           className,
         )}
         showCloseButton={false}

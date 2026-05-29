@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 const contactMethods = [
   'Telegram',
@@ -126,7 +127,7 @@ export function DialogForm() {
   }
 
   return (
-    <div className="w-full bg-white rounded-2xl px-2 py-4 sm:p-6">
+    <div className="w-full bg-white rounded-2xl">
       {/* Snake Logo Header */}
       <div className="flex flex-col items-center justify-center mb-6">
         <img
@@ -155,12 +156,12 @@ export function DialogForm() {
             name="name"
             control={control}
             render={({ field }) => (
-              <input
+              <Input
                 {...field}
                 type="text"
                 placeholder="Your Name"
                 disabled={isSubmitting}
-                className="w-full px-3 py-2.5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 font-sans text-sm sm:text-base placeholder-zinc-500 focus:outline-none focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7] transition-all duration-200"
+                className="h-auto w-full px-3 py-2.5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 font-sans text-sm sm:text-base placeholder-zinc-500 focus:outline-none focus:border-[#a855f7] focus-visible:border-[#a855f7] focus-visible:ring-1 focus-visible:ring-[#a855f7] focus:ring-1 focus:ring-[#a855f7] transition-all duration-200"
               />
             )}
           />
@@ -236,14 +237,14 @@ export function DialogForm() {
               control={control}
               render={({ field }) => (
                 <div className="relative w-full">
-                  <input
+                  <Input
                     {...field}
                     type="text"
                     placeholder="Your Contact"
                     disabled={
                       isSubmitting
                     }
-                    className="w-full px-3 py-2.5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 font-sans text-sm sm:text-base placeholder-zinc-500 focus:outline-none focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7] transition-all duration-200"
+                    className="h-auto w-full px-3 py-2.5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 font-sans text-sm sm:text-base placeholder-zinc-500 focus:outline-none focus:border-[#a855f7] focus-visible:border-[#a855f7] focus-visible:ring-1 focus-visible:ring-[#a855f7] focus:ring-1 focus:ring-[#a855f7] transition-all duration-200"
                   />
                 </div>
               )}
