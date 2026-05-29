@@ -2,6 +2,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -15,20 +16,23 @@ export function DialogModal({
   ...props
 }) {
   return (
-    <Dialog
-      className={cn(
-        'px-8 py-4 ',
-        className,
-      )}
-      {...props}
-    >
+    <Dialog {...props}>
       <DialogTrigger asChild>
         {openButton}
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-sm"
+        className={cn(
+          'sm:max-w-[540px] p-6 sm:p-8',
+          className,
+        )}
         showCloseButton={false}
       >
+        <DialogTitle>
+          <p className="sr-only">
+            Form dialog
+          </p>
+        </DialogTitle>
+
         {children}
         <DialogClose asChild>
           <Button

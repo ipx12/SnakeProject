@@ -15,6 +15,8 @@ import {
   MoveDown,
 } from 'lucide-react'
 import fourthSnake from '@/assets/images/fourthSnake.png'
+import { DialogModal } from '@/components/web/dialogModal/DialogModal'
+import { DialogForm } from '@/components/web/dialogModal/DialogForm'
 
 const TABS_DATA = [
   {
@@ -94,9 +96,17 @@ export function LastSection() {
 
                     <MoveDown className="size-7 xl:size-12 mb-2 text-black animate-bounce" />
 
-                    <MainButton className="p-6 xl:p-10 text-xl sm:text-2xl font-bold">
-                      {tab.buttonText}
-                    </MainButton>
+                    <DialogModal
+                      openButton={
+                        <MainButton className="p-6 xl:p-10 text-xl sm:text-2xl font-bold">
+                          {
+                            tab.buttonText
+                          }
+                        </MainButton>
+                      }
+                    >
+                      <DialogForm />
+                    </DialogModal>
                   </CardContent>
                 </Card>
               </TabsContent>

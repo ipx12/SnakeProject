@@ -146,6 +146,9 @@
   --radius-4xl: calc(
     var(--radius) * 2.6
   );
+  --color-bg-yellow-main: var(
+    --yellow-main
+  );
 }
 
 :root {
