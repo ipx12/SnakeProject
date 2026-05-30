@@ -27,7 +27,7 @@ export function DialogModal({
         )}
         showCloseButton={false}
       >
-        <DialogTitle className='w-0 h-0'>
+        <DialogTitle className="w-0 h-0">
           <p className="sr-only">
             Form dialog
           </p>
