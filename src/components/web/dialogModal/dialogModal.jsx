@@ -22,12 +22,12 @@ export function DialogModal({
       </DialogTrigger>
       <DialogContent
         className={cn(
-          'sm:max-w-[558px] h-[434px] p-6 sm:p-8',
+          'sm:max-w-[558px] min-h-[434px] sm:min-h-[388px] p-6 sm:p-8',
           className,
         )}
         showCloseButton={false}
       >
-        <DialogTitle>
+        <DialogTitle className='w-0 h-0'>
           <p className="sr-only">
             Form dialog
           </p>

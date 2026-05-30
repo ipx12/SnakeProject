@@ -99,16 +99,19 @@ export function DialogForm() {
 
   if (isSuccess) {
     return (
-      <div className="flex flex-col items-center justify-center py-8 text-center bg-white rounded-2xl p-6">
-        <img
-          src={snakeLogo}
-          alt="Snake Logo"
-          className="w-16 h-16 mb-6"
-        />
+      <div className="w-full bg-white rounded-2xl px-2 py-4 sm:p-6 text-center">
+        {/* Snake Logo Header */}
+        <div className="flex flex-col items-center justify-center mb-6">
+          <img
+            src={snakeLogo}
+            alt="Snake Logo"
+            className="w-16 h-16 mb-6"
+          />
+        </div>
         <h3 className="text-xl font-bold text-zinc-800 mb-2 font-sans">
           Thank you!
         </h3>
-        <p className="text-zinc-600 font-sans text-sm mb-6 max-w-xs">
+        <p className="text-zinc-600 font-sans text-sm mb-6 max-w-xs mx-auto">
           Your request has been
           successfully submitted. We
           will contact you soon.
