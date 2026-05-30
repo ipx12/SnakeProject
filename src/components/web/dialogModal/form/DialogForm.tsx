@@ -17,6 +17,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { DialogClose } from '@/components/ui/dialog'
 import { gsap } from 'gsap'
+import { submitContactForm } from '@/api'
+import { Loader2 } from 'lucide-react'
 
 const contactMethods = [
   'Telegram',
@@ -31,7 +33,7 @@ const formSchema = z.object({
       'Please select a contact method',
   }),
   contact: z
-    .string()
+    .string('Should be string')
     .min(
       1,
       'Contact details are required',
@@ -45,10 +47,8 @@ type FormValues = z.infer<
 export function DialogForm() {
   const [isFlipped, setIsFlipped] =
     React.useState(false)
-  const [
-    isSubmitting,
-    setIsSubmitting,
-  ] = React.useState(false)
+  const [isPending, startTransition] =
+    React.useTransition()
   const [submitError, setSubmitError] =
     React.useState<string | null>(null)
   const cardRef =
@@ -106,32 +106,35 @@ export function DialogForm() {
     },
   })
 
-  const onSubmit = async (
-    _data: FormValues,
+  const onSubmit = (
+    data: FormValues,
   ) => {
-    setIsSubmitting(true)
-    setSubmitError(null)
-    try {
-      // await submitContactForm({
-      //   name: data.name || undefined,
-      //   method: data.method.toLowerCase() as 'telegram' | 'whatsapp' | 'email',
-      //   contact: data.contact,
-      // })
-      setIsFlipped(true)
-      reset()
-    } catch (error) {
-      const err = error
-      console.error(
-        'Error submitting contact form:',
-        err,
-      )
-      setSubmitError(
-        err.message ||
-          'Something went wrong. Please try again.',
-      )
-    } finally {
-      setIsSubmitting(false)
-    }
+    startTransition(async () => {
+      setSubmitError(null)
+      try {
+        await submitContactForm({
+          name: data.name,
+          method:
+            data.method.toLowerCase() as
+              | 'telegram'
+              | 'whatsapp'
+              | 'email',
+          contact: data.contact,
+        })
+        setIsFlipped(true)
+        reset()
+      } catch (error) {
+        const err = error as Error
+        console.error(
+          'Error submitting contact form:',
+          err,
+        )
+        setSubmitError(
+          err.message ||
+            'Something went wrong. Please try again.',
+        )
+      }
+    })
   }
 
   return (
@@ -152,13 +155,13 @@ export function DialogForm() {
           }}
         >
           {/* Snake Logo Header */}
-          <div className="flex flex-col items-center justify-center mb-5">
+          <div className="flex flex-col items-center justify-center mt-12 mb-5">
             <img
               src={snakeLogo}
               alt="Snake Logo"
               className="w-14 h-13 mb-6"
             />
-            <p className="font-sans text-center sm:w-full sm:text-left font-light text-sm sm:text-base leading-relaxed">
+            <p className=" text-center sm:w-full sm:text-left font-light text-sm sm:text-base">
               Fields with an asterisk (
               <span className="text-[#a855f7] font-bold">
                 *
@@ -183,15 +186,13 @@ export function DialogForm() {
                     {...field}
                     type="text"
                     placeholder="Your Name"
-                    disabled={
-                      isSubmitting
-                    }
-                    className="h-auto w-full px-3 py-2.5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 font-sans text-sm sm:text-base placeholder-zinc-500 focus:outline-none focus:border-[#a855f7] focus-visible:border-[#a855f7] focus-visible:ring-1 focus-visible:ring-[#a855f7] focus:ring-1 focus:ring-[#a855f7] transition-all duration-200"
+                    disabled={isPending}
+                    className="h-auto w-full px-3 py-2.5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 text-sm sm:text-base placeholder-zinc-500 focus:outline-none focus:border-[#a855f7] focus-visible:border-[#a855f7] focus-visible:ring-1 focus-visible:ring-[#a855f7] focus:ring-1 focus:ring-[#a855f7] transition-all duration-200"
                   />
                 )}
               />
               {!!errors.name && (
-                <p className="text-red-500 text-xs mt-1 px-2 font-sans">
+                <p className="text-red-500 text-xs mt-1 px-2 ">
                   {errors.name.message}
                 </p>
               )}
@@ -215,7 +216,7 @@ export function DialogForm() {
                         field.onChange
                       }
                       disabled={
-                        isSubmitting
+                        isPending
                       }
                     >
                       <SelectTrigger className="w-full px-3 py-5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 font-sans text-sm sm:text-base placeholder-zinc-400 focus:outline-none focus:border-[#a855f7] focus-visible:border-[#a855f7] focus-visible:ring-0 focus:ring-0 transition-all duration-200 cursor-pointer flex items-center justify-between pr-2.5 [&_svg]:hidden">
@@ -281,7 +282,7 @@ export function DialogForm() {
                         type="text"
                         placeholder="Your Contact"
                         disabled={
-                          isSubmitting
+                          isPending
                         }
                         className="h-auto w-full px-3 py-2.5 bg-white border border-[#e1c3ff] rounded-xl text-zinc-800 font-sans text-sm sm:text-base placeholder-zinc-500 focus:outline-none focus:border-[#a855f7] focus-visible:border-[#a855f7] focus-visible:ring-1 focus-visible:ring-[#a855f7] focus:ring-1 focus:ring-[#a855f7] transition-all duration-200"
                       />
@@ -308,11 +309,19 @@ export function DialogForm() {
             {/* Submit Button */}
             <div className="flex justify-center pt-2">
               <Button
-                type="submit"
-                disabled={isSubmitting}
+                disabled={isPending}
                 className="text-sm text-black bg-yellow-main py-5 px-10 font-halvar rounded-xl"
               >
-                Submit
+                {isPending ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    <span>
+                      Loading...
+                    </span>
+                  </>
+                ) : (
+                  <span>Submit</span>
+                )}
               </Button>
             </div>
           </form>
@@ -320,7 +329,7 @@ export function DialogForm() {
 
         {/* Back Side: Success message */}
         <div
-          className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-white rounded-2xl flex flex-col items-center justify-center text-center p-4 select-none"
+          className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-white rounded-2xl flex flex-col items-center text-center select-none"
           style={{
             backfaceVisibility:
               'hidden',
@@ -329,7 +338,7 @@ export function DialogForm() {
           }}
         >
           {/* Snake Logo Header */}
-          <div className="flex flex-col items-center justify-center mb-8">
+          <div className="flex flex-col items-center mb-8">
             <img
               src={snakeLogo}
               alt="Snake Logo"

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 import fourthSnake from '@/assets/images/fourthSnake.png'
 import { DialogModal } from '@/components/web/dialogModal/DialogModal'
-import { DialogForm } from '@/components/web/dialogModal/DialogForm'
+import { DialogForm } from '@/components/web/dialogModal/form/DialogForm'
 
 const TABS_DATA = [
   {

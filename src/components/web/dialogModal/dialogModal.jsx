@@ -2,6 +2,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
@@ -27,13 +28,16 @@ export function DialogModal({
         )}
         showCloseButton={false}
       >
-        <DialogTitle className="w-0 h-0">
-          <p className="sr-only">
-            Form dialog
-          </p>
+        <DialogTitle className="sr-only w-0 h-0">
+          Form dialog
         </DialogTitle>
+        <DialogDescription className="sr-only">
+          Fill out this form to submit
+          your application.
+        </DialogDescription>
 
         {children}
+
         <DialogClose asChild>
           <Button
             variant="ghost"
