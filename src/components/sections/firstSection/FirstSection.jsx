@@ -30,7 +30,6 @@ export function FirstSection() {
             <br />
             {t('hero.headline.part2')}{' '}
             <span
-              id="carouselAnimation"
               className="text-yellow-main w-max inline-block h-[34px] xl:h-[72px] overflow-hidden mb-[-4px] xl:mb-[-8px]"
             >
               <span class="carouselAnimation" className="flex flex-col justify-between">
