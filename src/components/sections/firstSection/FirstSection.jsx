@@ -33,7 +33,7 @@ export function FirstSection() {
               id="carouselAnimation"
               className="text-yellow-main w-max inline-block h-[34px] xl:h-[72px] overflow-hidden mb-[-4px] xl:mb-[-8px]"
             >
-              <span className="flex flex-col justify-between">
+              <span class="carouselAnimation" className="flex flex-col justify-between">
                 {carouselWords.map((word) => (
                   <span key={word}>{word}</span>
                 ))}
