@@ -122,7 +122,7 @@ export function LastSection() {
             />
           </div>
         </Tabs>
-        <Footer/>
+        <Footer />
       </div>
     </section>
   )
