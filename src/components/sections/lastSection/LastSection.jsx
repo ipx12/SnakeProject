@@ -15,6 +15,8 @@ import {
   MoveDown,
 } from 'lucide-react'
 import fourthSnake from '@/assets/images/fourthSnake.png'
+import { DialogModal } from '@/components/web/dialogModal/DialogModal'
+import { DialogForm } from '@/components/web/dialogModal/form/DialogForm'
 
 const TABS_DATA = [
   {
@@ -45,9 +47,9 @@ export function LastSection() {
     useState('media-buyers')
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col justify-between px-4 md:px-8 xl:px-13 overflow-hidden bg-gradient-to-br from-[#ae5414] via-[#430960] to-[#120023] text-white">
+    <section className="relative w-full min-h-screen flex flex-col justify-between px-4 md:px-8 xl:px-13 overflow-hidden bg-linear-to-br from-[#ae5414] via-[#430960] to-[#120023] text-white">
       {/* Background Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-40 select-none z-0" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[40px_40px] pointer-events-none opacity-40 select-none z-0" />
 
       {/* Main Tabs Component Container */}
       <div className="relative font-halvar lg:max-w-[1440px] mx-auto flex-1 flex items-center justify-center w-full z-10">
@@ -94,9 +96,17 @@ export function LastSection() {
 
                     <MoveDown className="size-7 xl:size-12 mb-2 text-black animate-bounce" />
 
-                    <MainButton className="p-6 xl:p-10 text-xl sm:text-2xl font-bold">
-                      {tab.buttonText}
-                    </MainButton>
+                    <DialogModal
+                      openButton={
+                        <MainButton className="p-6 xl:p-10 text-xl sm:text-2xl font-bold">
+                          {
+                            tab.buttonText
+                          }
+                        </MainButton>
+                      }
+                    >
+                      <DialogForm />
+                    </DialogModal>
                   </CardContent>
                 </Card>
               </TabsContent>

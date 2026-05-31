@@ -32,4 +32,4 @@ export const getTasks =
  */
 export const submitContactForm = (
   payload,
-) => apiClient.post('/contact', payload)
+) => apiClient.post('/form', payload)

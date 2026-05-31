@@ -26,12 +26,8 @@
     "noFallthroughCasesInSwitch": true,
     /* Path mapping corresponding to vite.config.js */
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@lib/*": [
-        "./src/lib/*"
-      ],
+      "@/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
       "@components/*": [
         "./src/components/*"
       ],
@@ -43,7 +39,5 @@
       ]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

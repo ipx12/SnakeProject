@@ -2,6 +2,8 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
+  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -15,21 +17,27 @@ export function DialogModal({
   ...props
 }) {
   return (
-    <Dialog
-      className={cn(
-        'px-8 py-4 ',
-        className,
-      )}
-      {...props}
-    >
+    <Dialog {...props}>
       <DialogTrigger asChild>
         {openButton}
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-sm"
+        className={cn(
+          'sm:max-w-[558px] min-h-[434px] sm:min-h-[388px] p-6 sm:p-8',
+          className,
+        )}
         showCloseButton={false}
       >
+        <DialogTitle className="sr-only w-0 h-0">
+          Form dialog
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          Fill out this form to submit
+          your application.
+        </DialogDescription>
+
         {children}
+
         <DialogClose asChild>
           <Button
             variant="ghost"
