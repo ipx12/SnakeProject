@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "about": "Team",
+    "benefits": "Benefits",
+    "join": "Join us"
+  },
   "multiply": {
     "for_media_buyers": "For Media Buyers",
     "for_businesses": "For Businesses",
