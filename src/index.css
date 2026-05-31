@@ -299,6 +299,6 @@
   }
 }
 
-#carouselAnimation ul {
+.carouselAnimation {
   animation: carouselSlide 5s infinite;
 }
