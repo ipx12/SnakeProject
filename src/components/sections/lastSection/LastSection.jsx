@@ -17,6 +17,7 @@ import {
 import fourthSnake from '@/assets/images/fourthSnake.png'
 import { DialogModal } from '@/components/web/dialogModal/DialogModal'
 import { DialogForm } from '@/components/web/dialogModal/form/DialogForm'
+import Footer from './Footer'
 
 const TABS_DATA = [
   {
@@ -83,7 +84,7 @@ export function LastSection() {
                 value={tab.id}
                 className="w-full outline-none"
               >
-                <Card className="bg-[#9B00E8] text-white border-none ring-0 rounded-md px-4 lg:p-12 min-h-[470px] xl:min-h-[714px] flex flex-col items-center justify-center">
+                <Card className="bg-[#9B00E8] text-white border-none ring-0 rounded-md px-4 lg:p-12 min-h-[470px] xl:min-h-[614px] flex flex-col items-center justify-center">
                   <CardContent className="flex flex-col xl:gap-3 items-center max-w-[560px] justify-center p-0 text-center text-base sm:text-lg lg:text-xl font-bold">
                     <p className="mb-4">
                       {tab.p1}
@@ -121,6 +122,7 @@ export function LastSection() {
             />
           </div>
         </Tabs>
+        <Footer />
       </div>
     </section>
   )
