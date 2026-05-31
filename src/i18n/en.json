@@ -1,4 +1,10 @@
 {
+  "hero": {
+    "headline": {"part1": "Practice", "part2": "makes"},
+    "carousel": ["Profits", "Growth", "Skills"],
+    "subtitle": "We provide effective solutions, tested and refined on our own products and ad budgets",
+    "cta": "Get in Touch"
+  },
   "multiply": {
     "for_media_buyers": "For Media Buyers",
     "for_businesses": "For Businesses",
