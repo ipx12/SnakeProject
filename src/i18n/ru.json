@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "about": "команда",
+    "benefits": "Преимущества",
+    "join": "с нами"
+  },
   "multiply": {
     "for_media_buyers": "Для медиабайеров",
     "for_businesses": "Для бизнеса",
