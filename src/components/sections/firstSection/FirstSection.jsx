@@ -33,11 +33,11 @@ export function FirstSection() {
               id="carouselAnimation"
               className="text-yellow-main w-max inline-block h-[34px] xl:h-[72px] overflow-hidden mb-[-4px] xl:mb-[-8px]"
             >
-              <ul className="flex flex-col justify-between">
+              <span className="flex flex-col justify-between">
                 {carouselWords.map((word) => (
-                  <li key={word}>{word}</li>
+                  <span key={word}>{word}</span>
                 ))}
-              </ul>
+              </span>
             </span>
           </h1>
 
@@ -56,7 +56,7 @@ export function FirstSection() {
         <div className="inline-block pointer-events-none select-none absolute bottom-[-8vw] right-[-40px] lg:bottom-[-13vh] z-0">
           <img
             src={firstSnake}
-            className="max-w-[unset] w-[110%] h-auto max-h-[600px] lg:w-auto lg:h-[100vh] lg:max-w-[calc(100% - 600px)] lg:max-h-none object-contain"
+            className="max-w-[unset] w-[110%] h-auto max-h-[600px] lg:w-auto lg:h-[100vh] lg:max-w-[calc(100%-600px)] lg:max-h-none object-contain"
             alt="Snake"
             draggable={false}
           />
