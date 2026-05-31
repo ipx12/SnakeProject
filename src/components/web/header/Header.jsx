@@ -31,10 +31,7 @@ export function Header() {
       {/* Language Selector */}
       <div className="hidden md:flex items-center text-xl font-bold shrink-0">
         <button
-          onClick={() => {
-            i18n.changeLanguage('en')
-            window.history.pushState({}, '', window.location.pathname.replace(/^\/ru/, '') || '/')
-          }}
+          onClick={() => i18n.changeLanguage('en')}
           className={`uppercase cursor-pointer transition-colors duration-200 ${
             currentLang === 'en' ? 'text-yellow-main' : 'text-white'
           }`}
@@ -43,12 +40,7 @@ export function Header() {
         </button>
         <span className="text-yellow-main">/</span>
         <button
-          onClick={() => {
-            i18n.changeLanguage('ru')
-            if (!window.location.pathname.startsWith('/ru')) {
-              window.history.pushState({}, '', '/ru' + window.location.pathname)
-            }
-          }}
+          onClick={() => i18n.changeLanguage('ru')}
           className={`uppercase cursor-pointer transition-colors duration-200 ${
             currentLang === 'ru' ? 'text-yellow-main' : 'text-white'
           }`}
