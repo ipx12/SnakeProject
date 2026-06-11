@@ -5,11 +5,15 @@ import {
 import { submitContactForm } from './api'
 import i18n from './i18n'
 import { LastSection } from '@/components/sections/lastSection/LastSection'
+import { FirstSection } from '@/components/sections/FirstSection/FirstSection'
+import { SecondSection } from '@/components/sections/secondSection/secondSection'
 
 function App() {
   return (
     <main className="h-screen">
-      <LastSection />
+      {/* <FirstSection /> */}
+      {/* <SecondSection /> */}
+      {/* <LastSection /> */}
     </main>
   )
 }
