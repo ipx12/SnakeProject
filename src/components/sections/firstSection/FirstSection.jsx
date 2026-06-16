@@ -17,7 +17,7 @@ export function FirstSection() {
   const carouselRaw = t('hero.carousel', { returnObjects: true })
   const carouselWords = Array.isArray(carouselRaw) ? carouselRaw : []
   return (
-    <section id='1' className="relative w-full flex overflow-hidden bg-[#560080] md:bg-gradient-to-br md:from-[#ae5414] md:via-[#430960] md:to-[#120023] text-white px-4 md:px-8 xl:px-13">
+    <section id='home' className="relative w-full flex overflow-hidden bg-[#560080] md:bg-gradient-to-br md:from-[#ae5414] md:via-[#430960] md:to-[#120023] text-white px-4 md:px-8 xl:px-13">
       {/* Main Tabs Component Container */}
       <div className="relative lg:max-w-[1440px] font-halvar mx-auto w-full z-10 pt-[16px] lg:pt-[30px] lg:pb-[50px] h-full flex flex-col justify-between min-h-screen">
         <Header />
@@ -32,7 +32,7 @@ export function FirstSection() {
             <span
               className="text-yellow-main w-max inline-block h-[34px] xl:h-[72px] overflow-hidden mb-[-4px] xl:mb-[-8px]"
             >
-              <span class="carouselAnimation" className="flex flex-col justify-between">
+              <span className="carouselAnimation flex flex-col justify-between">
                 {carouselWords.map((word) => (
                   <span key={word}>{word}</span>
                 ))}

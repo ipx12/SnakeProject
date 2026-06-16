@@ -11,10 +11,10 @@ import { usePageScroll } from '@/hooks/usePageScroll'
 import { SecondSection } from './components/sections/secondSection/SecondSection'
 import { FirstSection } from './components/sections/firstSection/FirstSection'
 
-const SECTIONS = ['1', '2', '3', '4']
+const SECTIONS = ['home', 'about', 'benefits', 'join']
 
 function App() {
-  const { isDesktop, activeIndex, handleLinkClick } = usePageScroll(SECTIONS)
+  const { isDesktop, activeIndex } = usePageScroll(SECTIONS)
 
   return (
     <main className={isDesktop ? 'h-screen w-full overflow-hidden relative' : ''}>
@@ -31,8 +31,9 @@ function App() {
       >
         <FirstSection />
         <SecondSection />
-        <section id='3' className='h-screen w-full bg-green-500'>
+        <section id='benefits' className='h-screen w-full bg-green-500'>
           <h1 className='text-9xl'>Third Section</h1>
+          <a href="#join">join</a>
         </section>
         <LastSection />
         {/* <section id='1' className='h-screen bg-red-500'>
