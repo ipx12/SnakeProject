@@ -8,6 +8,8 @@ import { LastSection } from '@/components/sections/lastSection/LastSection'
 import { getBenefits } from './api'
 
 import { usePageScroll } from '@/hooks/usePageScroll'
+import { SecondSection } from './components/sections/secondSection/SecondSection'
+import { FirstSection } from './components/sections/firstSection/FirstSection'
 
 const SECTIONS = ['1', '2', '3', '4']
 
@@ -26,7 +28,10 @@ function App() {
             : {}
         }
       >
-        <section id='1' className='h-screen bg-red-500'>
+        <FirstSection />
+        <SecondSection />
+        <LastSection />
+        {/* <section id='1' className='h-screen bg-red-500'>
           <h1 className='text-9xl'>First Section</h1>
           <a href="#2" onClick={(e) => handleLinkClick(e, '2')}>Second Section</a>
         </section>
@@ -41,7 +46,7 @@ function App() {
         <section id='4' className='h-screen bg-purple-500'>
           <h1 className='text-9xl'>Fourth Section</h1>
           <a href="#1" onClick={(e) => handleLinkClick(e, '1')}>First Section</a>
-        </section>
+        </section> */}
       </div>
     </main>
   )
