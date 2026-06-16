@@ -17,7 +17,7 @@ export function FirstSection() {
   const carouselRaw = t('hero.carousel', { returnObjects: true })
   const carouselWords = Array.isArray(carouselRaw) ? carouselRaw : []
   return (
-    <section className="relative w-full flex overflow-hidden bg-[#560080] md:bg-gradient-to-br md:from-[#ae5414] md:via-[#430960] md:to-[#120023] text-white px-4 md:px-8 xl:px-13">
+    <section id='1' className="relative w-full flex overflow-hidden bg-[#560080] md:bg-gradient-to-br md:from-[#ae5414] md:via-[#430960] md:to-[#120023] text-white px-4 md:px-8 xl:px-13">
       {/* Main Tabs Component Container */}
       <div className="relative lg:max-w-[1440px] font-halvar mx-auto w-full z-10 pt-[16px] lg:pt-[30px] lg:pb-[50px] h-full flex flex-col justify-between min-h-screen">
         <Header />

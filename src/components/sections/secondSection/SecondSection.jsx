@@ -31,7 +31,7 @@ export function SecondSection() {
       )
   }, [])
   return (
-    <section className="second">
+    <section id='2' className="second">
       <div className="mx-auto h-screen max-w-[1920px] px-4 min-[700px]:px-12 xl:max-w-[1440px]">
         <div
           className=" pt-20 pb-5 xl:flex xl:flex-col-reverse lg:gap-[30px] xl:pt-10 min-[1400px]:h-full min-[1400px]:justify-end xl:gap-[50px]

@@ -24,12 +24,16 @@ function App() {
           isDesktop
             ? {
                 transform: `translateY(-${activeIndex * 100}vh)`,
+                transition: 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
               }
             : {}
         }
       >
         <FirstSection />
         <SecondSection />
+        <section id='3' className='h-screen w-full bg-green-500'>
+          <h1 className='text-9xl'>Third Section</h1>
+        </section>
         <LastSection />
         {/* <section id='1' className='h-screen bg-red-500'>
           <h1 className='text-9xl'>First Section</h1>

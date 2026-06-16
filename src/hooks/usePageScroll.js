@@ -2,7 +2,18 @@ import { useEffect, useState } from 'react'
 
 export function usePageScroll(sections) {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768)
-  const [activeIndex, setActiveIndex] = useState(0)
+
+  // Initialize the stack with the index matching the current URL hash, or 0
+  const getInitialStack = () => {
+    const hash = window.location.hash.slice(1)
+    const index = sections.indexOf(hash)
+    console.log("index",index, window.location)
+    return index !== -1 ? [index] : [0]
+  }
+
+  const [historyStack, setHistoryStack] = useState(getInitialStack)
+  const activeIndex = historyStack[historyStack.length - 1]
+  console.log(historyStack)
 
   // Track desktop layout state based on window width
   useEffect(() => {
@@ -17,9 +28,19 @@ export function usePageScroll(sections) {
   const scrollToSection = (id) => {
     const index = sections.indexOf(id)
     if (index !== -1) {
-      setActiveIndex(index)
-      // Update the URL hash without triggering hashchange
-      window.history.pushState(null, '', `#${id}`)
+      setHistoryStack((prev) => {
+        const top = prev[prev.length - 1]
+        const secondToTop = prev[prev.length - 2]
+
+        if (top === index) return prev
+
+        // If target index is the previous visited section, pop the stack
+        if (secondToTop !== undefined && secondToTop === index) {
+          return prev.slice(0, -1)
+        }
+
+        return [...prev, index]
+      })
     }
   }
 
@@ -37,36 +58,90 @@ export function usePageScroll(sections) {
     }
   }
 
+  // Sync URL hash when activeIndex changes (for desktop wheel scrolling and links)
+  useEffect(() => {
+    if (isDesktop && sections[activeIndex]) {
+      const currentHash = window.location.hash.slice(1)
+      const targetHash = sections[activeIndex]
+      
+      // Prevent pushing duplicate '#1' on initial mount when URL has no hash
+      if (activeIndex === 0 && !currentHash) {
+        return
+      }
+
+      if (currentHash !== targetHash) {
+        window.history.pushState(null, '', `#${targetHash}`)
+      }
+    }
+  }, [activeIndex, isDesktop, sections])
+
   // Handle URL hash changes (deep linking / back-forward navigation)
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleHashOrPopState = () => {
       const hash = window.location.hash.slice(1)
-      if (hash) {
-        const index = sections.indexOf(hash)
-        if (index !== -1) {
-          setActiveIndex(index)
-          if (!isDesktop) {
-            // On mobile, ensure we scroll to the element
-            setTimeout(() => {
-              document.getElementById(hash)?.scrollIntoView({ behavior: 'auto' })
-            }, 50)
-          }
+      const newIndex = sections.indexOf(hash) !== -1 ? sections.indexOf(hash) : 0
+
+      setHistoryStack((prev) => {
+        const top = prev[prev.length - 1]
+        const secondToTop = prev[prev.length - 2]
+
+        if (newIndex === top) {
+          return prev
         }
-      } else {
-        setActiveIndex(0)
-        if (!isDesktop && sections.length > 0) {
-          setTimeout(() => {
-            document.getElementById(sections[0])?.scrollIntoView({ behavior: 'auto' })
-          }, 50)
+
+        // If the new index matches the previous entry, it was a Back navigation
+        if (secondToTop !== undefined && newIndex === secondToTop) {
+          return prev.slice(0, -1)
+        }
+
+        // Otherwise, it's a Forward navigation or direct hash change, push to stack
+        return [...prev, newIndex]
+      })
+    }
+
+    window.addEventListener('hashchange', handleHashOrPopState)
+    window.addEventListener('popstate', handleHashOrPopState)
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashOrPopState)
+      window.removeEventListener('popstate', handleHashOrPopState)
+    }
+  }, [sections])
+
+  // Handle mobile scroll sync on activeIndex change
+  useEffect(() => {
+    if (!isDesktop && sections[activeIndex]) {
+      const hash = sections[activeIndex]
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [activeIndex, isDesktop, sections])
+
+  // Global anchor click interceptor to support standard HTML links automatically
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      const anchor = e.target.closest('a')
+      if (!anchor) return
+
+      const href = anchor.getAttribute('href')
+      if (href && href.startsWith('#')) {
+        const targetId = href.slice(1)
+        if (sections.includes(targetId)) {
+          e.preventDefault()
+          if (isDesktop) {
+            scrollToSection(targetId)
+          } else {
+            const element = document.getElementById(targetId)
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' })
+              window.history.pushState(null, '', `#${targetId}`)
+            }
+          }
         }
       }
     }
 
-    window.addEventListener('hashchange', handleHashChange)
-    // Run on mount to check if page loaded with a hash
-    handleHashChange()
-
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    document.addEventListener('click', handleDocumentClick)
+    return () => document.removeEventListener('click', handleDocumentClick)
   }, [isDesktop, sections])
 
   // Lock scroll and intercept wheel scroll events on desktop
@@ -74,7 +149,7 @@ export function usePageScroll(sections) {
     if (!isDesktop) return
 
     let lastTime = 0
-    const throttleDelay = 500 // 500ms between transitions
+    const throttleDelay = 800 // 800ms between transitions (matches CSS transition duration)
 
     const handleWheel = (e) => {
       e.preventDefault()
@@ -85,19 +160,29 @@ export function usePageScroll(sections) {
 
       if (e.deltaY > 0) {
         // Scroll down
-        setActiveIndex((prev) => {
-          const next = Math.min(prev + 1, sections.length - 1)
-          const nextId = sections[next]
-          window.history.pushState(null, '', `#${nextId}`)
-          return next
+        setHistoryStack((prev) => {
+          const current = prev[prev.length - 1]
+          const next = Math.min(current + 1, sections.length - 1)
+          if (current === next) return prev
+
+          const secondToTop = prev[prev.length - 2]
+          if (secondToTop !== undefined && secondToTop === next) {
+            return prev.slice(0, -1)
+          }
+          return [...prev, next]
         })
       } else if (e.deltaY < 0) {
         // Scroll up
-        setActiveIndex((prev) => {
-          const next = Math.max(prev - 1, 0)
-          const nextId = sections[next]
-          window.history.pushState(null, '', `#${nextId}`)
-          return next
+        setHistoryStack((prev) => {
+          const current = prev[prev.length - 1]
+          const next = Math.max(current - 1, 0)
+          if (current === next) return prev
+
+          const secondToTop = prev[prev.length - 2]
+          if (secondToTop !== undefined && secondToTop === next) {
+            return prev.slice(0, -1)
+          }
+          return [...prev, next]
         })
       }
     }
