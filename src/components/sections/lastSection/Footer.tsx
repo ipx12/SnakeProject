@@ -32,8 +32,7 @@ function Footer() {
         </div>
         <div className="w-1/5 text-right flex justify-end items-center">
           <a
-            href="#"
-            target="_blank"
+            href="#home"
             rel="noopener noreferrer"
             className="hover:text-white transition-colors duration-200 underline decoration-1 underline-offset-4 flex items-center gap-2"
           >
