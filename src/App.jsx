@@ -11,47 +11,53 @@ import { usePageScroll } from '@/hooks/usePageScroll'
 import { SecondSection } from './components/sections/secondSection/SecondSection'
 import { FirstSection } from './components/sections/firstSection/FirstSection'
 
-const SECTIONS = ['home', 'about', 'benefits', 'join']
+const SECTIONS = [
+  'home',
+  'about',
+  'benefits',
+  'join',
+]
 
 function App() {
-  const { isDesktop, activeIndex } = usePageScroll(SECTIONS)
+  const { isDesktop, activeIndex } =
+    usePageScroll(SECTIONS)
 
   return (
-    <main className={isDesktop ? 'h-screen w-full overflow-hidden relative' : ''}>
+    <main
+      className={
+        isDesktop
+          ? 'h-screen w-full overflow-hidden relative'
+          : ''
+      }
+    >
       <div
-        className={isDesktop ? 'w-full h-full' : ''}
+        className={
+          isDesktop
+            ? 'w-full h-full'
+            : ''
+        }
         style={
           isDesktop
             ? {
                 transform: `translateY(-${activeIndex * 100}vh)`,
-                transition: 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
+                transition:
+                  'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
               }
             : {}
         }
       >
         <FirstSection />
         <SecondSection />
-        <section id='benefits' className='h-screen w-full bg-green-500'>
-          <h1 className='text-9xl'>Third Section</h1>
+        <section
+          id="benefits"
+          className="h-screen w-full bg-green-500"
+        >
+          <h1 className="text-9xl">
+            Third Section
+          </h1>
           <a href="#join">join</a>
         </section>
         <LastSection />
-        {/* <section id='1' className='h-screen bg-red-500'>
-          <h1 className='text-9xl'>First Section</h1>
-          <a href="#2" onClick={(e) => handleLinkClick(e, '2')}>Second Section</a>
-        </section>
-        <section id='2' className='h-screen bg-green-500'>
-          <h1 className='text-9xl'>Second Section</h1>
-          <a href="#3" onClick={(e) => handleLinkClick(e, '3')}>Third Section</a>
-        </section>
-        <section id='3' className='h-screen bg-blue-500'>
-          <h1 className='text-9xl'>Third Section</h1>
-          <a href="#4" onClick={(e) => handleLinkClick(e, '4')}>Fourth Section</a>
-        </section>
-        <section id='4' className='h-screen bg-purple-500'>
-          <h1 className='text-9xl'>Fourth Section</h1>
-          <a href="#1" onClick={(e) => handleLinkClick(e, '1')}>First Section</a>
-        </section> */}
       </div>
     </main>
   )
