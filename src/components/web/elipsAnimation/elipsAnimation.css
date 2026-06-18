@@ -1,0 +1,106 @@
+@property --ellipse-x {
+	syntax: '<percentage>';
+	inherits: true;
+	initial-value: 95%;
+}
+
+@property --ellipse-y {
+	syntax: '<percentage>';
+	inherits: true;
+	initial-value: 8%;
+}
+
+/* Mobile first: keep ellipse static in top-right corner */
+.elipsAnimation__container-start.activateAnimation {
+	animation: none;
+}
+
+.elipsAnimation__container-start {
+	--ellipse-x: 115%;
+	--ellipse-y: 10%;
+	--ellipse-rx: 500px;
+	--ellipse-ry: 424px;
+	--ellipse-mobile-x: -15%;
+	--ellipse-mobile-y: 78%;
+	--ellipse-mobile-rx: 400px;
+	--ellipse-mobile-ry: 424px;
+	animation: none;
+}
+
+@keyframes ellipseTravel {
+	0%,
+	23.08% {
+		--ellipse-x: 95%;
+		--ellipse-y: 8%;
+	}
+	38.46%,
+	61.54% {
+		--ellipse-x: 8%;
+		--ellipse-y: 50%;
+	}
+	76.92%,
+	100% {
+		--ellipse-x: 95%;
+		--ellipse-y: 92%;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.elipsAnimation__container-start.activateAnimation {
+		animation: none;
+	}
+}
+
+.elipsAnimation__elips {
+	background: radial-gradient(
+		ellipse var(--ellipse-rx) var(--ellipse-ry) at var(--ellipse-x) var(--ellipse-y),
+		rgba(254, 233, 125, 1) 0%,
+		rgba(254, 233, 125, 1) 45%,
+		rgba(254, 233, 125, 0.32) 68%,
+		rgba(254, 233, 125, 0) 100%
+	);
+	-webkit-mask-image: url('../../../assets/images/bgVectorLines.svg');
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: -200px center;
+	-webkit-mask-size: cover;
+	mask-image: url('../../../assets/images/bgVectorLines.svg');
+	mask-repeat: no-repeat;
+	mask-position: -200px center;
+	mask-size: cover;
+}
+
+.elipsAnimation__elips-mobile {
+	background: radial-gradient(
+		ellipse var(--ellipse-mobile-rx) var(--ellipse-mobile-ry) at var(--ellipse-mobile-x) var(--ellipse-mobile-y),
+		rgba(254, 233, 125, 1) 0%,
+		rgba(254, 233, 125, 1) 45%,
+		rgba(254, 233, 125, 0.32) 68%,
+		rgba(254, 233, 125, 0) 100%
+	);
+	-webkit-mask-image: url('../../../assets/images/bgVectorLinesMobile.svg');
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: left bottom;
+	-webkit-mask-size: cover;
+	mask-image: url('../../../assets/images/bgVectorLinesMobile.svg');
+	mask-repeat: no-repeat;
+	mask-position: left bottom;
+	mask-size: cover;
+}
+
+@media (min-width: 768px) {
+	.elipsAnimation__elips {
+		-webkit-mask-position: center;
+		mask-position: center;
+	}
+	.elipsAnimation__container-start {
+		--ellipse-x: 95%;
+		--ellipse-y: 8%;
+		--ellipse-ry: 324px;
+	}
+	.elipsAnimation__container-start.activateAnimation {
+		animation: ellipseTravel 13s linear infinite alternate;
+	}
+	.elipsAnimation__elips-mobile {
+		display: none;
+	}
+}
